@@ -51,16 +51,29 @@ class Item
     }
 
     /**
+     * Check initialization of data array params using isset magic method
+     *
+     * @param string $param The key to check
+     * @return bool
+     */
+    public function __isset($param)
+    {
+        if ($param == 'identifier') return true;
+
+        return array_key_exists($param, $this->data);
+    }
+
+    /**
      * Return the value of protected methods
      * 
-     * @param  any $param
+     * @param  string $param The key to get
      * @return mixed
      */
     public function __get($param)
     {
         if ($param == 'identifier') return $this->identifier;
 
-        return array_key_exists($param, $this->data) ? $this->data[$param] : null;
+        return isset($this->$param) ? $this->data[$param] : null;
     }
 
     /**
