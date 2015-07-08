@@ -334,4 +334,15 @@ class Cart
     {
         return new Item($identifier, $data, $this->store);
     }
+
+    /**
+     * Cart destructor
+     *
+     * Stores cart to store (e.g. Session) if the store provides a save() method.
+     */
+    public function __destruct()
+    {
+        // Save the cart to store (e.g. Session)
+        if (method_exists($this->store, 'save')) $this->store->save();
+    }
 }

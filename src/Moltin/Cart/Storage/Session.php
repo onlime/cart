@@ -35,9 +35,12 @@ class Session extends Runtime implements \Moltin\Cart\StorageInterface
     }
 
     /**
-     * The session store destructor.
+     * Save cart to session.
+     *
+     * Do not call this from session storage destructor as the destructor of the cart might have already
+     * been called before.
      */
-    public function __destruct()
+    public function save()
     {
         $_SESSION['cart'] = serialize(static::$cart);
     }
